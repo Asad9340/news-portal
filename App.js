@@ -1,4 +1,6 @@
 const loadData = async () => {
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = 'block';
   const res = await fetch(
     'https://openapi.programming-hero.com/api/news/categories'
   );
@@ -12,16 +14,23 @@ const showBtn = mainData => {
   const category = document.getElementById('category');
   items.forEach(element => {
     const div = document.createElement('div');
+    const spinner = document.getElementById('spinner');
+    spinner.style.display = 'none';
     div.innerHTML = `
-    <button class="px-3 py-2 hover:bg-[#5D5FEF] border border--[#5D5FEF]  hover:text-white rounded-lg outline-none duration-300 font-medium w-full">${element.category_name}</button>
+    <button onclick="changeCategory('${element.category_id}')" class="px-3 py-2 hover:bg-[#5D5FEF] border border--[#5D5FEF]  hover:text-white rounded-lg outline-none duration-300 font-medium w-full">${element.category_name}</button>
     `;
     category.appendChild(div);
   });
 };
 
-const showCard = async () => {
+const changeCategory = id => {
+  showCard(id);
+};
+const showCard = async id => {
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = 'block';
   const res = await fetch(
-    'https://openapi.programming-hero.com/api/news/category/01'
+    `https://openapi.programming-hero.com/api/news/category/${id}`
   );
   const data = await res.json();
   const finalData = data.data;
@@ -29,8 +38,10 @@ const showCard = async () => {
 };
 const displayCard = finalData => {
   const cardContainer = document.getElementById('cardContainer');
+  cardContainer.innerHTML = '';
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = 'none';
   finalData.forEach(singleData => {
-    console.log(singleData);
     const div = document.createElement('div');
     div.innerHTML = `
           <div class="flex flex-col lg:grid gap-4 mt-4 lg:grid-cols-12 bg-[#fff] p-4 rounded-xl">
@@ -49,7 +60,7 @@ const displayCard = finalData => {
                     <h4 class="text-sm font-semibold">${
                       singleData.author.name
                     }</h4>
-                    <p class="text-xs">${singleData.author.published_date.slice(
+                    <p class="text-xs">${singleData.author?.published_date?.slice(
                       0,
                       10
                     )}</p>
@@ -71,5 +82,26 @@ const displayCard = finalData => {
     cardContainer.appendChild(div);
   });
 };
+
+const searchBtn = document.getElementById('searchBtn');
+searchBtn.addEventListener('click', () => {
+  console.log('clicked');
+  const searchInput = document.getElementById('searchInput').value;
+  if (
+    searchInput == '01' ||
+    searchInput == '02' ||
+    searchInput == '03' ||
+    searchInput == '04' ||
+    searchInput == '05' ||
+    searchInput == '06' ||
+    searchInput == '07' ||
+    searchInput == '08'
+  ) {
+    showCard(searchInput);
+  } else {
+    alert('Please enter a valid search input');
+  }
+});
+
 loadData();
-showCard();
+showCard('01');

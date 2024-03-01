@@ -9,11 +9,12 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body class="bg-[#F6F6F6]">
     <header class="bg-[#F6F6F6] p-6 font-semibold">
-      <div class="container mx-auto flex justify-between">
-        <div>
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center justify-center">
           <h1 class="text-[#5D5FEF]">
             <span class="text-white bg-[#5D5FEF] py-1 px-2 rounded-lg"
               >News</span
@@ -40,19 +41,28 @@
       <section class="mt-10 container mx-auto">
         <div class="text-cente">
           <div class="relative w-3/4">
-            <input class="w-full rounded-l-lg"
+            <input id="searchInput"
+              class="w-full rounded-l-lg"
               type="text"
-              placeholder="Enter like : 01/02/03/04"
+              placeholder="Enter like : 01/02 to 08"
             />
-            <button class="absolute border bg-[#5D5FEF] text-white py-2 rounded-r-lg px-6">Search</button>
+            <button id="searchBtn"
+              class="absolute border bg-[#5D5FEF] text-white py-2 rounded-r-lg px-6"
+            >
+              Search
+            </button>
           </div>
         </div>
       </section>
 
       <section class="container mx-auto">
-        <div id="cardContainer" class="mt-6">
-        </div>
+        <div id="cardContainer" class="mt-6"></div>
       </section>
+      <div id="spinner">
+        <div class="flex justify-center">
+          <span class="loader"></span>
+        </div>
+      </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="./App.js"></script>
