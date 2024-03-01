@@ -44,7 +44,7 @@ const displayCard = finalData => {
   finalData.forEach(singleData => {
     const div = document.createElement('div');
     div.innerHTML = `
-          <div class="flex flex-col lg:grid gap-4 mt-4 lg:grid-cols-12 bg-[#fff] p-4 rounded-xl">
+          <div class="flex flex-col lg:grid gap-4 mt-6 lg:grid-cols-12 bg-[#fff] px-4 md:px-6 lg:px-8 py-6 lg:py-10 rounded-xl">
             <div class="col-span-3">
               <img class="rounded-lg" src="${singleData.image_url}" alt="">
             </div>
